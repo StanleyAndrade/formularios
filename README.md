@@ -19,18 +19,18 @@ Link ----->   https://smtpjs.com/
 
 # Formulário Simples
 Contém:
-Nome
-Whatsapp
-Email
-Nome da Empresa
-CPF
+1) Nome
+2) Whatsapp
+3) Email
+4) Nome da Empresa
+5) CPF
 
 # Formulário complexo
 Contém: 
-Nome
-Whatsapp
-Email
-Nome da Empresa
-Cargo
-Faixa de Faturamento
-O que o cliente deseja
+1) Nome
+2) Whatsapp
+3) Email
+4) Nome da Empresa
+5) Cargo
+6) Faixa de Faturamento
+7) O que o cliente deseja
