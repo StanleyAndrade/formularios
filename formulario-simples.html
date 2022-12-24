@@ -1,1 +1,84 @@
+<!--O token que está sendo usado é o meu-->
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMTPJS Tech SOS</title>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+</head>
+
+<body>
+    <h3>Titulo</h3>
+    <form id="submit" action="#" name="form-contact">
+        <input type="text" id="name" placeholder="Nome completo"><br>
+        <input type="text" id="whatsapp" placeholder="Whatsapp (DDD) 00000-0000"><br>
+        <input type="email" id="email" placeholder="Email"><br>
+        <input type="text" id="nome_empresa" placeholder="Nome da empresa"><br>
+        <input type="text" id="cpf" placeholder="CPF Ex.: 10110110100"><br>
+        <input type="submit" value="Enviar" id="submit">
+        <input type="hidden" name="redirectTo" value="">
+    </form>
+    <script src="./index.js"></script>
+</body>
+</html>
+
+<script>
+//cria variáveis que recebem os valores dos inputs
+const name = document.getElementById('name');
+const whatsapp = document.getElementById('whatsapp');
+const email = document.getElementById('email');
+const nome_empresa = document.getElementById('nome_empresa');
+const cpf = document.getElementById('cpf');
+const datadehoje = document.getElementById('data');
+const submit = document.getElementById('submit');
+
+//pega dia e hora e coloca na variavel dataAtual
+const data = new Date()
+const dia = String(data.getDate()).padStart(2, '0') //trasforma 1 em 01
+const mes = String(data.getMonth() + 1).padStart(2, '0') //trasforma 1 em 01
+const ano = data.getFullYear() // 2023
+const hora = String(data.getHours()).padStart(2, '0') //trasforma 1 em 01
+const minuto = String(data.getMinutes()).padStart(2, '0') //trasforma 1 em 01
+const segundo = String(data.getSeconds()).padStart(2, '0') //trasforma 1 em 01
+const dataAtual = `Enviado em ${dia}/${mes}/${ano} às ${hora}:${minuto}:${segundo}`
+
+//corpo do email, tudo que será enviado para o Email
+submit.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    let ebody = `
+    <h5>Nome: </h5>${name.value}
+    <br>
+    <h5>Whatsapp: </h5>${whatsapp.value}
+    <br>
+    <h5>Email: </h5>${email.value}
+    <br>
+    <h5>Nome da Empresa: </h5>${nome_empresa.value}
+    <br>
+    <h5>CPF: </h5>${cpf.value}
+    <br><br>
+    ${dataAtual}
+    `;
+
+    Email.send({
+        SecureToken : "bfc80bff-ca40-4c07-9fc4-4adabcd444bf", //add your token here
+        To : email.value, //pode colocar email.value e será enviado pro email 
+        From : "stanleyandrade95@gmail.com",
+        Subject : "This is the subject",
+        Body : ebody
+    }).then(
+      message => alert(message)
+    );
+});
+</script>
+
+<!--COMEÇO DO CSS-->
+<style type="text/css">
+    input {
+        align-content: center;
+        align-items: center;
+        width: 30%;
+    }
+</style>
