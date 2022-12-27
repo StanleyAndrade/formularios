@@ -1,4 +1,4 @@
-<!--Em breve colocar Checkbox, Radio, upload de arquivos pra enviar por email-->
+<!--Em breve colocar Checkbox-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,8 +12,8 @@
 
 <body>
     <h1 style="text-align: center;" >Titulo</h1>
-    <form id="submit" action="#" name="form-contact">
-        <input type="text" id="name" placeholder="Nome completo" required><br>
+    <form id="submit" action="#" name="form-contact" method="post" enctype="multipart/form-data">
+        <input type="text" id="name" placeholder="Nome completo"><br>
         <input type="text" id="whatsapp" placeholder="Whatsapp (DDD) 00000-0000"><br>
         <input type="email" id="email" placeholder="Email"><br>
         <input type="text" id="nome_empresa" placeholder="Nome da empresa"><br>
@@ -60,7 +60,7 @@
        </select>
        <br><br>
 
-       <input type="submit" value="Enviar" id="submit">
+       <input type="submit" value="Enviar" id="submit" onload="uploadFile()">
     </form>
     <script src="./index.js"></script>
 </body>
@@ -78,6 +78,27 @@ const cargo = document.getElementById('cargo');
 const faturamento = document.getElementById('faturamento');
 const serviçodesejado = document.getElementById('serviçodesejado');
 const submit = document.getElementById('submit');
+
+//pegar imagem
+function uploadFile() {
+    var blobFile = $('arquivo').files[0];
+    var formData = new FormData();
+    formData.append("fileToUpload", blobFile);
+
+    $.ajax({
+       url: "upload.php",
+       type: "POST",
+       data: formData,
+       processData: false,
+       contentType: false,
+       success: function(response) {
+           // .. do something
+       },
+       error: function(jqXHR, textStatus, errorMessage) {
+           console.log(errorMessage); // Optional
+       }
+    });
+}
 
 //Pega dia e hora e coloca na variável dataAtual
 const data = new Date()
