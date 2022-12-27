@@ -1,0 +1,157 @@
+<!--Em breve colocar Checkbox, Radio, upload de arquivos pra enviar por email-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMTPJS Tech SOS</title>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+</head>
+
+<body>
+    <h1 style="text-align: center;" >Titulo</h1>
+    <form id="submit" action="#" name="form-contact">
+        <input type="text" id="name" placeholder="Nome completo" required><br>
+        <input type="text" id="whatsapp" placeholder="Whatsapp (DDD) 00000-0000"><br>
+        <input type="email" id="email" placeholder="Email"><br>
+        <input type="text" id="nome_empresa" placeholder="Nome da empresa"><br>
+        <input type="date" id="nascimento"><br>
+        <input type="hidden" name="redirectTo" value="">
+        <br><br>
+        
+        <label for="cargo" >Cargo</label> <br>
+       <select id="cargo">
+        <option>Proprietário</option>
+        <option>Presidente ou CEO</option>
+        <option>Vice-presidente ou C-Level</option>
+        <option>Diretor</option>
+        <option>Gerente</option>
+        <option>Coordenador</option>
+        <option>Supervisor</option>
+        <option>Analista</option>
+       </select>
+       <br><br>
+
+       <label for="faturamento" >Faixa de Faturamento</label> <br>
+       <select id="faturamento">
+        <option>Ainda não faturamos</option>
+        <option>Até R$12 mil ao ano</option>
+        <option>Até R$60 mil ao ano</option>
+        <option>Até R$500 mil ao ano</option>
+        <option>De R$500 mil a 1 milhão ao ano</option>
+        <option>De 1 milhão a 5 milhões ao ano</option>
+        <option>De 5 milhões a 10 milhões ao ano</option>
+        <option>De 10 milhões a 50 milhões ao ano</option>
+        <option>De 50 milhões a 500 milhões ao ano</option>
+        <option>Acima de 500 milhões</option>
+       </select>
+       <br><br>
+
+       <label for="serviçodesejado" >O que você deseja?</label> <br>
+       <select id="serviçodesejado">
+        <option>Plataforma EAD</option>
+        <option>Site Institucional</option>
+        <option>E-commerce</option>
+        <option>Página de venda</option>
+        <option>Página de Captura</option>
+        <option>Quero que crie algo novo para a minha empresa</option>
+       </select>
+       <br><br>
+
+       <input type="submit" value="Enviar" id="submit">
+    </form>
+    <script src="./index.js"></script>
+</body>
+</html>
+
+<script>
+//Cria variáveis que recebem os valores dos inputs
+const name = document.getElementById('name');
+const whatsapp = document.getElementById('whatsapp');
+const email = document.getElementById('email');
+const nome_empresa = document.getElementById('nome_empresa');
+const nascimento = document.getElementById('nascimento');
+const datadehoje = document.getElementById('data');
+const cargo = document.getElementById('cargo');
+const faturamento = document.getElementById('faturamento');
+const serviçodesejado = document.getElementById('serviçodesejado');
+const submit = document.getElementById('submit');
+
+//Pega dia e hora e coloca na variável dataAtual
+const data = new Date()
+const dia = String(data.getDate()).padStart(2, '0') //trasforma 1 em 01
+const mes = String(data.getMonth() + 1).padStart(2, '0') //trasforma 1 em 01
+const ano = data.getFullYear() // 2023
+const hora = String(data.getHours()).padStart(2, '0') //trasforma 1 em 01
+const minuto = String(data.getMinutes()).padStart(2, '0') //trasforma 1 em 01
+const segundo = String(data.getSeconds()).padStart(2, '0') //trasforma 1 em 01
+const dataAtual = `Enviado em ${dia}/${mes}/${ano} às ${hora}:${minuto}:${segundo}`
+
+//corpo do email com tudo que será enviado para o Email
+submit.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    let ebody = `
+    <div><img src="https://techsos.com.br/wp-content/uploads/2022/11/Logo-simples-e1669332330842.png" width="100%"></div>
+    <br><br>
+    <h3 style="margin: 0%;">Nome do cliente:</h3>${name.value}
+    <br><br>
+    <h3 style="margin: 0%;">Whatsapp do cliente:</h3>${whatsapp.value}
+    <br><br>
+    <h3 style="margin: 0%;">Email do cliente: </h3>${email.value}
+    <br><br>
+    <h3 style="margin: 0%;">Nome da Empresa: </h3>${nome_empresa.value}
+    <br><br>
+    <h3 style="margin: 0%;">Data de Nascimento do cliente: </h3>${nascimento.value}
+    <br><br>
+    <h3 style="margin: 0%;">Cargo do cliente: </h3>${cargo.value}
+    <br><br>
+    <h3 style="margin: 0%;">Faturamento da empresa do cliente: </h3>${faturamento.value}
+    <br><br>
+    <h3 style="margin: 0%;">Serviço que o cliente deseja: </h3>${serviçodesejado.value}
+    <br><br>
+    ${dataAtual} 
+    `;
+
+    Email.send({
+        SecureToken : "bfc80bff-ca40-4c07-9fc4-4adabcd444bf", //add your token here
+        To : email.value, //pode colocar email.value e será enviado pro email ou colocar o email digitado mas ficará fixo
+        From : "stanleyandrade95@gmail.com", //email que enviará a mensagem para o usuário
+        Subject : "Potencial Cliente",
+        Body : ebody
+    }).then(
+      message => alert(message)
+    );
+});
+</script>
+
+<!--COMEÇO DO CSS-->
+<style type="text/css">
+    input {
+        align-content: center;
+        align-items: center;
+        width: 40%;
+    }
+
+    select{
+        align-content: center;
+        align-items: center;
+        width: 40%;
+    }
+
+    body{
+        align-items: center;
+        text-align: center;
+    }
+
+    @media screen and (max-width: 700px){
+        input {
+            width: 90%;
+        }
+
+        select{
+        width: 90%;
+        }
+    }
+</style>
