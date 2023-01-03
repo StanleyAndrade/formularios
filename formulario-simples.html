@@ -75,7 +75,9 @@ submit.addEventListener('submit',(e)=>{
         Subject : "Você recebeu um novo email",
         Body : ebody
     }).then(
-      message => alert(message)
+        //é possível colocar o que quiser, e será feito após o submit
+      message => alert(message);
+        window.open('https://smtpjs.com/', '_self') 
     );
 });
 </script>
