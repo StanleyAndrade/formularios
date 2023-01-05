@@ -75,9 +75,9 @@ submit.addEventListener('submit',(e)=>{
         Subject : "Você recebeu um novo email",
         Body : ebody
     }).then(
-        //é possível colocar o que quiser, e será feito após o submit
+      //é possível colocar o que quiser, e será feito após o submit
       message => alert(message);
-        window.open('https://smtpjs.com/', '_self') 
+      window.open('https://smtpjs.com/', '_self') 
     );
 });
 </script>
@@ -97,6 +97,9 @@ submit.addEventListener('submit',(e)=>{
 
     @media screen and (max-width: 700px){
         input {
+            width: 90%;
+        }
+        select{
             width: 90%;
         }
     }
