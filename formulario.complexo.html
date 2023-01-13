@@ -11,12 +11,11 @@
 <body>
     <h1 style="text-align: center;" >Titulo</h1>
     <form id="submit" action="#" name="form-contact" method="post" enctype="multipart/form-data">
-        <input type="text" id="name" placeholder="Nome completo"><br>
-        <input type="text" id="whatsapp" placeholder="Whatsapp (DDD) 00000-0000"><br>
-        <input type="email" id="email" placeholder="Email"><br>
-        <input type="text" id="nome_empresa" placeholder="Nome da empresa"><br>
-        <input type="date" id="nascimento"><br>
-        <input type="hidden" name="redirectTo" value="">
+        <input type="text" id="name" placeholder="Nome completo" required><br>
+        <input type="text" id="whatsapp" placeholder="Whatsapp (DDD) 00000-0000" required><br>
+        <input type="email" id="email" placeholder="Email" required><br>
+        <input type="text" id="nome_empresa" placeholder="Nome da empresa" required><br>
+        <input type="date" id="nascimento" required><br>
         <br><br>
         
         <label for="cargo" >Cargo</label> <br>
@@ -135,14 +134,14 @@ submit.addEventListener('submit',(e)=>{
 
     Email.send({
         SecureToken : "bfc80bff-ca40-4c07-9fc4-4adabcd444bf", //add your token here
-        To : email.value, //pode colocar email.value e será enviado pro email ou colocar o email digitado mas ficará fixo
+        To : 'techsos.contato@gmail.com', //pode colocar email.value e será enviado pro email ou colocar o email digitado mas ficará fixo
         From : "stanleyandrade95@gmail.com", //email que enviará a mensagem para o usuário
         Subject : "Potencial Cliente",
         Body : ebody
     }).then(
       //é possível colocar o que quiser, e será feito após o submit
       message => alert(message),
-      window.open('https://smtpjs.com/', '_self') 
+      window.open('https://techsos.com.br/?page_id=185', '_self') 
     )
 });
 </script>
