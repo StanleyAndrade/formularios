@@ -9,13 +9,11 @@
 </head>
 
 <body>
-    <h1 style="text-align: center;" >Titulo</h1>
     <form id="submit" action="#" name="form-contact" method="post" enctype="multipart/form-data">
         <input type="text" id="name" placeholder="Nome completo" required><br>
         <input type="text" id="whatsapp" placeholder="Whatsapp (DDD) 00000-0000" required><br>
         <input type="email" id="email" placeholder="Email" required><br>
         <input type="text" id="nome_empresa" placeholder="Nome da empresa" required><br>
-        <input type="date" id="nascimento" required><br>
         <br><br>
         
         <label for="cargo" >Cargo</label> <br>
@@ -34,15 +32,15 @@
        <label for="faturamento" >Faixa de Faturamento</label> <br>
        <select id="faturamento">
         <option>Ainda não faturamos</option>
-        <option>Até R$12 mil ao ano</option>
-        <option>Até R$60 mil ao ano</option>
-        <option>Até R$500 mil ao ano</option>
-        <option>De R$500 mil a 1 milhão ao ano</option>
-        <option>De 1 milhão a 5 milhões ao ano</option>
-        <option>De 5 milhões a 10 milhões ao ano</option>
-        <option>De 10 milhões a 50 milhões ao ano</option>
-        <option>De 50 milhões a 500 milhões ao ano</option>
-        <option>Acima de 500 milhões</option>
+        <option>Até R$2 mil por mês</option>
+        <option>Até R$6 mil por mês</option>
+        <option>Até R$12 mil por mês</option>
+        <option>Até R$30 mil por mês</option>
+        <option>De R$30 a R$100 mil por mês</option>
+        <option>De R$100 mil a R$500 mil por mês</option>
+        <option>De R$500 mil a 1 milhão por mês</option>
+        <option>De 1 milhão a 50 milhões por mês</option>
+        <option>Acima de 50 milhões por mês</option>
        </select>
        <br><br>
 
@@ -57,45 +55,34 @@
        </select>
        <br><br>
 
-       <input type="submit" value="Enviar" id="submit" onload="uploadFile()">
+       <input type="submit" value="Enviar" id="submit" onclick="">
     </form>
     <script src="./index.js"></script>
 </body>
 </html>
 
 <script>
-//Cria variáveis que recebem os valores dos inputs
+//Cria variáveis que recebem os valores dos inputs para enviar por EMAIL
 const name = document.getElementById('name');
 const whatsapp = document.getElementById('whatsapp');
 const email = document.getElementById('email');
 const nome_empresa = document.getElementById('nome_empresa');
-const nascimento = document.getElementById('nascimento');
 const datadehoje = document.getElementById('data');
 const cargo = document.getElementById('cargo');
 const faturamento = document.getElementById('faturamento');
 const serviçodesejado = document.getElementById('serviçodesejado');
 const submit = document.getElementById('submit');
 
-//pegar imagem
-function uploadFile() {
-    var blobFile = $('arquivo').files[0];
-    var formData = new FormData();
-    formData.append("fileToUpload", blobFile);
-
-    $.ajax({
-       url: "upload.php",
-       type: "POST",
-       data: formData,
-       processData: false,
-       contentType: false,
-       success: function(response) {
-           // .. do something
-       },
-       error: function(jqXHR, textStatus, errorMessage) {
-           console.log(errorMessage); // Optional
-       }
-    });
-}
+//Cria variáveis que recebem os valores dos inputs para enviar pelo WHATSAPP
+const nameZAP = document.getElementById('name');
+const whatsappZAP = document.getElementById('whatsapp');
+const emailZAP = document.getElementById('email');
+const nome_empresaZAP = document.getElementById('nome_empresa');
+const datadehojeZAP = document.getElementById('data');
+const cargoZAP = document.getElementById('cargo');
+const faturamentoZAP = document.getElementById('faturamento');
+const serviçodesejadoZAP = document.getElementById('serviçodesejado');
+const submitZAP = document.getElementById('submit');
 
 //Pega dia e hora e coloca na variável dataAtual
 const data = new Date()
@@ -106,6 +93,33 @@ const hora = String(data.getHours()).padStart(2, '0') //trasforma 1 em 01
 const minuto = String(data.getMinutes()).padStart(2, '0') //trasforma 1 em 01
 const segundo = String(data.getSeconds()).padStart(2, '0') //trasforma 1 em 01
 const dataAtual = `Enviado em ${dia}/${mes}/${ano} às ${hora}:${minuto}:${segundo}`
+
+//Função + corpo do Whatsapp com tudo que será enviado para o Whatsapp
+
+function enviarProZap(){
+    //Nomes pré estabalecidos
+    var zap = "https://wa.me/5521992002356?text=";
+    var textoZAP = `
+*Nome do cliente:* ${nameZAP.value} \n
+*Whatsapp do cliente:* ${whatsappZAP.value} \n
+*Email do cliente:* ${emailZAP.value} \n
+*Nome da Empresa:* ${nome_empresaZAP.value} \n
+*Cargo do cliente:* ${cargoZAP.value} \n
+*Faturamento da empresa do cliente:* ${faturamentoZAP.value} \n
+*Serviço que o cliente deseja:* ${serviçodesejadoZAP.value} \n
+${dataAtual}
+`;
+
+//Transforma em texto de Whatsapp
+textoZAP = window.encodeURIComponent(textoZAP);
+
+//Concatena e exibe
+var codigoTodo = zap + textoZAP;
+window.open(codigoTodo, '_self')
+
+}
+
+
 
 //corpo do email com tudo que será enviado para o Email
 submit.addEventListener('submit',(e)=>{
@@ -120,8 +134,6 @@ submit.addEventListener('submit',(e)=>{
     <h3 style="margin: 0%;">Email do cliente: </h3>${email.value}
     <br><br>
     <h3 style="margin: 0%;">Nome da Empresa: </h3>${nome_empresa.value}
-    <br><br>
-    <h3 style="margin: 0%;">Data de Nascimento do cliente: </h3>${nascimento.value}
     <br><br>
     <h3 style="margin: 0%;">Cargo do cliente: </h3>${cargo.value}
     <br><br>
@@ -140,8 +152,9 @@ submit.addEventListener('submit',(e)=>{
         Body : ebody
     }).then(
       //é possível colocar o que quiser, e será feito após o submit
-      message => alert(message),
-      window.open('https://techsos.com.br/?page_id=185', '_self') 
+      //message => alert(message),
+      enviarProZap()
+      //window.open('https://techsos.com.br/?page_id=185', '_self') 
     )
 });
 </script>
@@ -152,6 +165,9 @@ submit.addEventListener('submit',(e)=>{
         align-content: center;
         align-items: center;
         width: 40%;
+        padding: 5px;
+        border-radius: 10px;
+        margin: 5px;
     }
 
     select{
@@ -163,6 +179,7 @@ submit.addEventListener('submit',(e)=>{
     body{
         align-items: center;
         text-align: center;
+        color: white
     }
 
     @media screen and (max-width: 700px){
