@@ -17,7 +17,7 @@ Link ----->   https://smtpjs.com/
 11) Preencha os campos com as informações que foram salvas anteriormente. No campo "Domain", pode colocar seu site. 
 12) Clique em "Generate security token" e copie o token de segurança e guarde. Ele será usado no formulário. 
 
-# Formulário Simples
+# Formulário Simples - Envia pra Email
 Contém:
 1) Nome
 2) Whatsapp
@@ -25,7 +25,7 @@ Contém:
 4) Nome da Empresa
 5) CPF
 
-# Formulário complexo
+# Formulário complexo - Envia pra Email e Whatsapp
 Contém: 
 1) Nome
 2) Whatsapp
